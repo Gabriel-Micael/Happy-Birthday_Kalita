@@ -25,7 +25,7 @@ main {
     line-height: 1.1;
     color: #fff;
     text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    font-size: clamp(7rem, 12vw, 13rem);
+    font-size: clamp(3.6rem, 12vw, 10rem);
     max-width: 100%;
     word-wrap: break-word;
     opacity: 0;
@@ -53,10 +53,10 @@ main {
     justify-content: center;
     align-items: center;
     font-family: Montserrat;
-    font-weight: 250;
-    line-height: 1.1;
+    font-weight: 300;
+    line-height: 1.5;
     color: #ff96b4;
-    font-size: clamp(0.7rem, 4vw, 1.5rem);
+    font-size: clamp(1rem, 2.2vw, 1.45rem);
     padding: 20px 30px;
     margin: 10vh 5vw;
     max-width: 700px;
@@ -83,7 +83,7 @@ main {
 h2 {
     font-family: 'Licorice', cursive;
     font-weight: 350;
-    font-size: clamp(5rem, 12vw, 9rem);
+    font-size: clamp(2.9rem, 9.5vw, 7rem);
     color: white;
     text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     position: relative;
@@ -293,7 +293,12 @@ a {
 }
 
 .image-text p {
-    line-height: 1.5;
+    font-size: clamp(1rem, 1.8vw, 1.28rem);
+    line-height: 1.65;
+}
+
+.section-title-xl {
+    font-size: clamp(3.1rem, 10vw, 5.8rem);
 }
 
 .friend-image {
@@ -314,16 +319,16 @@ a {
 }
 
     .text-section h3 {
-        font-size: 1.6rem;
+        font-size: clamp(1.35rem, 2.7vw, 1.9rem);
         color: #333;
         margin: 10px 0;
         font-weight: 600;
     }
 
     .text-section p {
-        font-size: 1rem;
+        font-size: clamp(1rem, 1.6vw, 1.2rem);
         color: #555;
-        line-height: 1.5;
+        line-height: 1.65;
     }
 
 
@@ -365,11 +370,11 @@ a {
     }
 
         .text-section h3 {
-            font-size: 1.3rem;
+            font-size: clamp(1.2rem, 5vw, 1.45rem);
         }
 
         .text-section p {
-            font-size: 0.95rem;
+            font-size: clamp(1rem, 3.9vw, 1.08rem);
         }
 }
 
@@ -429,7 +434,8 @@ a {
     color: #fff;
     font-family: Montserrat;
     font-weight: 300;
-    font-size: 20px;
+    font-size: clamp(1rem, 2.3vw, 1.4rem);
+    line-height: 1.7;
     text-align:center;
 }
 
@@ -437,9 +443,20 @@ a {
     color: #fff;
     font-family: Montserrat;
     font-weight: 400;
-    font-size: 30px;
+    font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+    line-height: 1.25;
     text-align: center;
     margin-bottom: 5px;
+}
+
+.title-main-xl {
+    font-size: clamp(2.2rem, 7.2vw, 3.8rem);
+    font-weight: 600 !important;
+}
+
+.title-main-xxl {
+    font-size: clamp(2.5rem, 8.5vw, 4.4rem);
+    font-weight: 900 !important;
 }
 .pai {
     max-width: 500px !important;
