@@ -22,15 +22,19 @@ More than a website, this is a digital memory album full of affection, gratitude
 
 ### Entry and surprise concept
 
-![Entry concept image](MyApp/wwwroot/img/528458861_18325795177231447_5433393298667093500_n.jpg)
+<img width="396" height="858" alt="image" src="https://github.com/user-attachments/assets/9048f323-b854-4b75-b958-bd5cacdd038e" />
+
+<img width="395" height="856" alt="image" src="https://github.com/user-attachments/assets/9b6bde8e-9329-429a-aa47-867ebaffc4c8" />
 
 ### Celebration carousel (messages + portraits)
 
-![Family and friends messages concept](MyApp/wwwroot/img/familia.jpg)
+<img width="395" height="858" alt="image" src="https://github.com/user-attachments/assets/add6c066-830e-4c30-bc64-2f5906e25b6c" />
+
+<img width="395" height="859" alt="image" src="https://github.com/user-attachments/assets/cc790469-7c41-4903-b6e6-32d6d0e07735" />
 
 ### Memorable moments gallery
 
-![Memorable moments concept](MyApp/wwwroot/img/marcantes/familia2.jpg)
+<img width="397" height="857" alt="image" src="https://github.com/user-attachments/assets/fd7d14d5-01a5-468f-b11b-819ec9aad370" />
 
 ## Technical implementation
 
