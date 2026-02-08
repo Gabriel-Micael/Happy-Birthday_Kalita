@@ -69,12 +69,10 @@ const prevSlide = () => {
 /* --- Botões --- */
 document.querySelector('.next').addEventListener('click', () => {
     nextSlide();
-    resetTimer();
 });
 
 document.querySelector('.prev').addEventListener('click', () => {
     prevSlide();
-    resetTimer();
 });
 
 /* --- Indicadores --- */
@@ -82,16 +80,8 @@ indicators.forEach((dot, i) => {
     dot.addEventListener('click', () => {
         index = i;
         showSlide(index);
-        resetTimer();
     });
 });
-
-/* --- Troca automática --- */
-let autoSlide = setInterval(nextSlide, 15000);
-function resetTimer() {
-    clearInterval(autoSlide);
-    autoSlide = setInterval(nextSlide, 15000);
-}
 
 /* --- Suporte a swipe (toque) no celular --- */
 let startX = 0;
@@ -114,7 +104,6 @@ carousel.addEventListener('touchend', () => {
         } else {
             prevSlide();
         }
-        resetTimer();
     }
 });
 

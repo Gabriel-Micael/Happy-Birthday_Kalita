@@ -202,19 +202,26 @@ a {
 }
 
     .controls button {
-        background: rgba(0,0,0,0.3);
+        width: 52px;
+        height: 52px;
         border: none;
-        font-size: 2rem;
         cursor: pointer;
         border-radius: 50%;
-        padding: 6px 12px;
-        margin: 0 10px;
-        transition: 0.3s;
+        margin: 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.85);
+        color: #ff96b4;
+        font-size: 2rem;
+        line-height: 1;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
         .controls button:hover {
-            background: white;
-            transform: scale(1.1);
+            transform: scale(1.08);
+            box-shadow: 0 0 16px 6px rgba(255, 255, 255, 0.95);
         }
 
 .indicators {
@@ -328,6 +335,13 @@ a {
     }
 
     
+
+    .controls button {
+        width: 44px;
+        height: 44px;
+        margin: 0 8px;
+        font-size: 1.6rem;
+    }
 
     .indicators {
         bottom: 10px;
