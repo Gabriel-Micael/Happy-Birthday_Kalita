@@ -49,9 +49,12 @@
         foreach (var friend in Model)
         {
             var activeClass = index == 0 ? "active" : "";
+            var imagePath = string.IsNullOrWhiteSpace(friend.ImagePath)
+                ? "img/familia.jpg"
+                : friend.ImagePath.Replace("\\", "/").TrimStart('~', '/');
             <div class="carousel-item @activeClass d-flex p-5">
                 <div class="carousel-content d-flex flex-column">
-                    <img src="@Url.Content($"~/{friend.ImagePath.TrimStart('/')}")" alt="@friend.Name" class="friend-image" />
+                    <img src="@Url.Content($"~/{imagePath}")" alt="@friend.Name" class="friend-image" />
                     <div class="text-section">
                         <h3>@friend.Name</h3>
                         <p>@friend.Description</p>
