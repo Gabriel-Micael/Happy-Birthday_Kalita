@@ -347,9 +347,40 @@ a {
 
 
 @media (max-width: 600px) {
+    .carousel-shell {
+        display: block;
+    }
+
     .carousel {
         height: auto; /* ✅ altura se ajusta no mobile também */
         margin: 0;
+    }
+
+    .carousel.mobile-scroll {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+        .carousel.mobile-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+    .carousel.mobile-scroll {
+        scrollbar-width: none;
+    }
+
+    .carousel.mobile-scroll .carousel-item {
+        position: relative;
+        opacity: 1;
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+    }
+
+    .carousel-nav {
+        display: none;
     }
 
     .indicators {
@@ -480,4 +511,3 @@ a {
         max-width: 300px !important;
     }
 }
-
