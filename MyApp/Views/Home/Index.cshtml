@@ -1,0 +1,264 @@
+﻿@model IEnumerable<MyApp.Models.FriendModel>
+
+@{
+    ViewData["Title"] = "Happy Birthday";
+}
+
+
+<div class="position-relative overflow-hidden">
+    <!-- Imagem de fundo -->
+    <img src="~/img/526650179_18325339123231447_9150755844155355956_n.jpg"
+         class="img-fluid w-100 object-fit-cover"
+         style="height: 60em; object-position: center 30%; border: 0;"
+         alt="imagem_kalita">
+
+    <!-- Texto central -->
+    <div class="position-absolute top-50 start-50 translate-middle text-center w-100 px-3">
+        <h1 class="hero-text m-0">Happy Birthday!</h1>
+    </div>
+
+    <!-- Fade inferior -->
+    <div class="position-absolute bottom-0 start-0 w-100"
+         style="height: 40%; background: linear-gradient(to bottom, rgba(255, 150, 180, 0), #ff96b4);">
+    </div>
+</div>
+
+    <h2 class="text-center m-2">Surpresa dos 30tão</h2>
+
+<p class="phrase-text text-center ">
+    Parabéns minha irmã. Hoje é um dia especial. Seu aniversário! Então pensei, como um irmão sem um tustão furado vai dar um presente?!
+    Então tive a ideia de fazer esse site para você. Não se anime, é bem curtinho, mas feito com muito amor. Admito que não conseguiria fazê-lo
+    sozinho, por isso contei com o apoio de seus maiores apoiadores nessa vida. Seus familiares e amigos. Cada um contribuiu com uma parte da sua importância para eles.
+    Então, espero que goste!
+</p>
+<div class="image-container ">
+    <div class="image-text">
+        <h2 style="font-size:90px">Felicitações</h2>
+        <p class="text-center m-4">
+            Nesse pequeno carrossel, está representado a adimiração, os parabéns e o orgulho de amigos e
+            familiares por quem você é, foi, e também a empolgação por quem você há de ser. Considere-se
+            abraçada por todos, pois, verdadeiramente, todos nós te amamos!
+        </p>
+    </div>
+</div>
+
+<div class="carousel">
+    @if (Model != null && Model.Any())
+    {
+        var index = 0;
+        foreach (var friend in Model)
+        {
+            var activeClass = index == 0 ? "active" : "";
+            <div class="carousel-item @activeClass d-flex p-5">
+                <div class="carousel-content d-flex flex-column">
+                    <img src="@friend.ImagePath" alt="@friend.Name" class="friend-image" />
+                    <div class="text-section">
+                        <h3>@friend.Name</h3>
+                        <p>@friend.Description</p>
+                    </div>
+                </div>
+            </div>
+            index++;
+        }
+    }
+    else
+    {
+        <p>Nenhum amigo encontrado.</p>
+    }
+
+    <div class="controls">
+        <button class="prev visually-hidden"></button>
+        <button class="next visually-hidden"></button>
+    </div>
+
+    <div class="indicators">
+        @if (Model != null)
+        {
+            var i = 0;
+            foreach (var _ in Model)
+            {
+                var activeClass = i == 0 ? "active" : "";
+                <div class="indicator @activeClass"></div>
+                i++;
+            }
+        }
+    </div>
+</div>
+
+<div class="image-container ">
+    <div class="image-text">
+        <h2 style="font-size:90px">Momentos marcantes</h2>
+        <p class="text-center m-4">
+            Aqui estão alguns poucos post-it's, que você "quase" não usa né, trazendo de volta momentos que consideramos importantes e outros só para rir um pouco do passado!
+        </p>
+    </div>
+</div>
+
+<div class="container d-flex flex-column">
+    <h3 class="title-main">Nostalgia</h3>
+    <div class="pai postit">
+        <img src="~/img/marcantes/mangueira.jpg" alt="banho de mangueira" class="postit-img">
+    </div>
+    <div class="pai postit">
+        <img src="~/img/marcantes/sofa.jpg" alt="familia no sofá" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        "Momentos simples, mas inesquecíveis" -Pai
+    </p>
+</div>
+
+<div class="container d-flex flex-column">
+    <h3 class="title-main">Chile</h3>
+    <div class="postit">
+        <img src="~/img/marcantes/chile.jpg" alt="chile" class="postit-img">
+    </div>
+    <div class="postit">
+        <img src="~/img/marcantes/selfie-neve.jpg" alt="chile" class="postit-img">
+    </div>
+    <div class="postit">
+        <img src="~/img/marcantes/selfie-2.jpg" alt="chile" class="postit-img">
+    </div>
+    <div class="postit">
+        <img src="~/img/marcantes/olaf.jpg" alt="chile" class="postit-img">
+    </div>
+    <div class="postit">
+        <img src="~/img/marcantes/neve1.jpg" alt="chile" class="postit-img">
+    </div>
+    <div class="postit">
+        <img src="~/img/marcantes/neve2.jpg" alt="chile" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        "Um momento que estourou a bolha da nossa mente e nos proporcionou muitos momentos marcantes. Obrigado por participar disso comigo!" -Abel
+    </p>
+</div>
+<div class="container d-flex flex-column">
+    <h3 class="title-main">27 years old</h3>
+    <div class="postit">
+        <img src="~/img/marcantes/niver_27.jpg" alt="27 years" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        Só para relembrar dos 27 years old
+    </p>
+</div>
+<div class="container d-flex flex-column">
+    <h3 class="title-main">Psicologia</h3>
+    <div class="postit">
+        <img src="~/img/marcantes/psicologia.jpg" alt="psicologia" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        A Psicologia foi um presente que Deus te deu e você usufluiu tão bem disso que nos faz crescermos juntos e nos sentirmos impulsionados. Você é uma grande profissional!
+    </p>
+</div>
+<div class="container d-flex flex-column" >
+    <h3 class="title-main">Gabi's moments</h3>
+    <div class="postit gabi-momentos" style="max-width: 400px">
+        <img src="~/img/marcantes/bolo_gabi.jpg" alt="gabi" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        Momentos que você e a gabi passaram juntas
+    </p>
+</div>
+<div style="margin-bottom: 100px;"></div>
+<div class="container d-flex flex-column">
+    <h3 class="title-main">"Fitness"</h3>
+    <div class="postit">
+        <img src="~/img/marcantes/bike.jpg" alt="bike" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        Faz de tudo. Ciclismo, caminhada, crossfit. Menos academia! :(
+    </p>
+</div>
+<div style="margin-bottom: 100px;"></div>
+<div class="container d-flex flex-column">
+    <h3 class="title-main">Companheira de rango</h3>
+    <div class="postit">
+        <img src="~/img/marcantes/jantar.jpg" alt="janta" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        Faz o melhor spaghetti que conheço! A torta holandesa então... nem se fala. Por falar nisso, obrigado pela boa comida de hoje 😋
+    </p>
+</div>
+<div class="container d-flex flex-column">
+    <h3 class="title-main">"Adora" cachorros</h3>
+    <div class="postit">
+        <img src="~/img/marcantes/mãe.jpg" alt="mae" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        Logan que o diga
+    </p>
+</div>
+<div class="container d-flex flex-column">
+    <h3 class="title-main">Olívia palito</h3>
+    <div class="postit">
+        <img src="~/img/marcantes/paz.jpg" alt="palito" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        Nomenclatura carinhosamente dada pelo Igor
+    </p>
+</div>
+<div class="container d-flex flex-column">
+<h3 class="title-main">Friend's Selfie</h3>
+<div class="postit">
+    <img src="~/img/marcantes/selft_louca.jpg" alt="self" class="postit-img">
+</div>
+<p class="text-post m-4">
+    From a time when Juninho still had hair (se vira pra entender)
+</p>
+</div>
+<div class="container d-flex flex-column">
+    <h3 class="title-main">Companheira de Passeios</h3>
+    <div class="postit">
+        <img src="~/img/marcantes/passeio.jpg" alt="passeio" class="postit-img">
+    </div>
+    <div class="postit">
+        <img src="~/img/marcantes/passeio2.jpg" alt="passeio2" class="postit-img">
+    </div>
+    <div class="postit">
+        <img src="~/img/marcantes/passeio3.jpg" alt="passeio3" class="postit-img">
+    </div>
+    <div class="postit">
+        <img src="~/img/marcantes/passeio4.jpg" alt="passeio4" class="postit-img">
+    </div>
+    <div class="postit">
+        <img src="~/img/marcantes/jordão.jpg" alt="campus do jordão" class="postit-img">
+    </div>
+
+    <p class="text-post m-4">
+        Torna um passeio bom em um excelente
+    </p>
+</div>
+<div class="container d-flex flex-column">
+    <h3 class="title-main">Grupo de Louvor</h3>
+    <div class="postit">
+        <img src="~/img/marcantes/louvor.jpg" alt="grupo de louvor" class="postit-img">
+    </div>
+    <p class="text-post m-4">
+        Você começou, liderou, construiu e edificou esse lindo grupo ao qual tenho prazer em participar.
+    </p>
+</div>
+
+
+
+<div class="container d-flex flex-column">
+    <h3 class="title-main" style="font-weight: 600 !important; font-size: 60px">Te Amamos</h3>
+    <div class="family postit">
+        <img src="~/img/marcantes/niver.jpg" alt="irmãos" class="postit-img">
+    </div>
+    <div class="family postit">
+        <img src="~/img/marcantes/familia2.jpg" alt="familia" class="postit-img">
+    </div>
+    <div class="family postit">
+        <img src="~/img/familia.jpg" alt="família" class="postit-img" >
+    </div>
+    
+    <p class="text-post m-4">
+        Todos os membros da família e um impostor de brinde. Cada um mais a vontade que outro! Pode contar com cada um dessa foto para o que der e vier, 
+        mas não falo pelo impostor. Estamos na torcida pelo seu sucesso e crentes de que Deus é poderoso para fazer a vontade dele na sua vida! TE AMAMOS MUITO!
+    </p>
+</div>
+
+<h3 class="title-main" style="font-weight: 900 !important; font-size: 70px">Parabéns</h3>
+
+
+
+<div style="margin-bottom: 100px;"></div>
