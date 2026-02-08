@@ -56,7 +56,7 @@ function adjustCarouselHeight() {
 /* --- Exibe slide e ajusta altura --- */
 const showSlide = (i) => {
     slides.forEach((slide, j) => {
-        const shouldActivate = !isMobileMode && j === i;
+        const shouldActivate = j === i;
         slide.classList.toggle('active', shouldActivate);
         indicators[j].classList.toggle('active', j === i);
     });
@@ -65,32 +65,13 @@ const showSlide = (i) => {
     requestAnimationFrame(() => adjustCarouselHeight());
 };
 
-const syncIndicatorWithScroll = () => {
-    const slideWidth = carousel.clientWidth;
-    if (!slideWidth) return;
-
-    const newIndex = Math.round(carousel.scrollLeft / slideWidth);
-    if (newIndex === index || newIndex < 0 || newIndex >= total) return;
-
-    index = newIndex;
-    indicators.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-    });
-};
-
 const updateCarouselMode = () => {
     const shouldUseMobileMode = window.innerWidth <= mobileBreakpoint;
 
     if (shouldUseMobileMode === isMobileMode) return;
 
     isMobileMode = shouldUseMobileMode;
-    carousel.classList.toggle('mobile-scroll', isMobileMode);
-
-    if (isMobileMode) {
-        carousel.style.height = 'auto';
-    } else {
-        carousel.scrollTo({ left: index * carousel.clientWidth });
-    }
+    carousel.classList.remove('mobile-scroll');
 
     showSlide(index);
 };
@@ -120,10 +101,6 @@ indicators.forEach((dot, i) => {
     dot.addEventListener('click', () => {
         index = i;
         showSlide(index);
-
-        if (isMobileMode) {
-            carousel.scrollTo({ left: i * carousel.clientWidth, behavior: 'smooth' });
-        }
     });
 });
 
@@ -141,11 +118,6 @@ carousel.addEventListener('touchmove', (e) => {
 });
 
 carousel.addEventListener('touchend', () => {
-    if (isMobileMode) {
-        syncIndicatorWithScroll();
-        return;
-    }
-
     const diff = startX - endX;
     if (Math.abs(diff) > threshold) {
         if (diff > 0) {
@@ -156,11 +128,6 @@ carousel.addEventListener('touchend', () => {
     }
 });
 
-carousel.addEventListener('scroll', () => {
-    if (isMobileMode) {
-        syncIndicatorWithScroll();
-    }
-});
 
 /* --- Ajusta altura inicial e em redimensionamentos --- */
 window.addEventListener('load', () => {
