@@ -1,0 +1,26 @@
+@model MyApp.Controllers.EntryViewModel
+
+@{
+    ViewData["Title"] = "Bem-vinda";
+}
+
+<div class="entry-page">
+    <div class="entry-card">
+        <h1 class="hero-text entry-title">Happy<br />Birthday!</h1>
+        <p class="entry-subtitle">Antes de entrar, conta seu nome para liberar a surpresa 🎉</p>
+
+        <form asp-action="Entry" method="post" class="entry-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <label asp-for="Name" class="form-label">Seu nome</label>
+            <input asp-for="Name" class="form-control entry-input" placeholder="Digite seu nome" autocomplete="name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+
+            <button type="submit" class="btn entry-button">Entrar</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
