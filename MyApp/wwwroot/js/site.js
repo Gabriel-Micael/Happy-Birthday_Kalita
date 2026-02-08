@@ -22,9 +22,18 @@ const indicators = document.querySelectorAll('.indicator');
 const total = slides.length;
 let index = 0;
 const carousel = document.querySelector('.carousel');
+const nextButton = document.querySelector('.next');
+const prevButton = document.querySelector('.prev');
+const mobileBreakpoint = 600;
+let isMobileMode = false;
 
 /* --- Função para ajustar altura do carrossel --- */
 function adjustCarouselHeight() {
+    if (isMobileMode) {
+        carousel.style.height = 'auto';
+        return;
+    }
+
     const active = document.querySelector('.carousel-item.active');
     if (!active) return;
 
@@ -47,12 +56,43 @@ function adjustCarouselHeight() {
 /* --- Exibe slide e ajusta altura --- */
 const showSlide = (i) => {
     slides.forEach((slide, j) => {
-        slide.classList.toggle('active', j === i);
+        const shouldActivate = !isMobileMode && j === i;
+        slide.classList.toggle('active', shouldActivate);
         indicators[j].classList.toggle('active', j === i);
     });
 
     // ajusta altura suavemente
     requestAnimationFrame(() => adjustCarouselHeight());
+};
+
+const syncIndicatorWithScroll = () => {
+    const slideWidth = carousel.clientWidth;
+    if (!slideWidth) return;
+
+    const newIndex = Math.round(carousel.scrollLeft / slideWidth);
+    if (newIndex === index || newIndex < 0 || newIndex >= total) return;
+
+    index = newIndex;
+    indicators.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+    });
+};
+
+const updateCarouselMode = () => {
+    const shouldUseMobileMode = window.innerWidth <= mobileBreakpoint;
+
+    if (shouldUseMobileMode === isMobileMode) return;
+
+    isMobileMode = shouldUseMobileMode;
+    carousel.classList.toggle('mobile-scroll', isMobileMode);
+
+    if (isMobileMode) {
+        carousel.style.height = 'auto';
+    } else {
+        carousel.scrollTo({ left: index * carousel.clientWidth });
+    }
+
+    showSlide(index);
 };
 
 /* --- Controles --- */
@@ -67,11 +107,11 @@ const prevSlide = () => {
 };
 
 /* --- Botões --- */
-document.querySelector('.next').addEventListener('click', () => {
+nextButton.addEventListener('click', () => {
     nextSlide();
 });
 
-document.querySelector('.prev').addEventListener('click', () => {
+prevButton.addEventListener('click', () => {
     prevSlide();
 });
 
@@ -80,6 +120,10 @@ indicators.forEach((dot, i) => {
     dot.addEventListener('click', () => {
         index = i;
         showSlide(index);
+
+        if (isMobileMode) {
+            carousel.scrollTo({ left: i * carousel.clientWidth, behavior: 'smooth' });
+        }
     });
 });
 
@@ -97,6 +141,11 @@ carousel.addEventListener('touchmove', (e) => {
 });
 
 carousel.addEventListener('touchend', () => {
+    if (isMobileMode) {
+        syncIndicatorWithScroll();
+        return;
+    }
+
     const diff = startX - endX;
     if (Math.abs(diff) > threshold) {
         if (diff > 0) {
@@ -107,11 +156,21 @@ carousel.addEventListener('touchend', () => {
     }
 });
 
+carousel.addEventListener('scroll', () => {
+    if (isMobileMode) {
+        syncIndicatorWithScroll();
+    }
+});
+
 /* --- Ajusta altura inicial e em redimensionamentos --- */
 window.addEventListener('load', () => {
+    updateCarouselMode();
     showSlide(index); // força ajuste inicial
 });
-window.addEventListener('resize', adjustCarouselHeight);
+window.addEventListener('resize', () => {
+    updateCarouselMode();
+    adjustCarouselHeight();
+});
 
 
 //post-it
