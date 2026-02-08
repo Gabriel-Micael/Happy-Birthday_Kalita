@@ -145,12 +145,22 @@ a {
     word-wrap: break-word;
 }
 
+.carousel-shell {
+    position: relative;
+    max-width: 760px;
+    margin: 50px auto 100px auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 .carousel {
     background-color: #fff;
     position: relative;
     max-width: 600px;
+    width: 100%;
     height: auto; /* ✅ altura automática */
-    margin: 50px auto 100px auto;
+    margin: 0 auto;
     overflow: hidden;
     border-radius: 20px;
     box-shadow: 0 0 35px #fff;
@@ -160,8 +170,10 @@ a {
 
 /* Quando a largura da tela for menor que 600px */
 @media (max-width: 600px) {
-    .carousel {
-        margin: 80px 5vw; /* 10vw de margem esquerda e direita */
+    .carousel-shell {
+        max-width: 100%;
+        margin: 80px 5vw;
+        gap: 10px;
     }
 }
 
@@ -192,37 +204,29 @@ a {
         position: relative; /* ✅ o slide ativo entra no fluxo e define a altura */
     }
 
-.controls {
-    position: absolute;
-    top: 50%;
-    width: 100%;
+.carousel-nav {
+    width: 52px;
+    min-width: 52px;
+    height: 52px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
     display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.85);
+    color: #ff96b4;
+    font-size: 2rem;
+    line-height: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 11;
 }
 
-    .controls button {
-        width: 52px;
-        height: 52px;
-        border: none;
-        cursor: pointer;
-        border-radius: 50%;
-        margin: 0 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-        box-shadow: 0 0 12px 4px rgba(255, 255, 255, 0.85);
-        color: #ff96b4;
-        font-size: 2rem;
-        line-height: 1;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .carousel-nav:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 16px 6px rgba(255, 255, 255, 0.95);
     }
-
-        .controls button:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 16px 6px rgba(255, 255, 255, 0.95);
-        }
 
 .indicators {
     position: absolute;
@@ -252,6 +256,15 @@ a {
 
 @media (max-width: 600px) {
     .carousel-item {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .carousel-nav {
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
         font-size: 1.5rem;
     }
 }
@@ -336,16 +349,7 @@ a {
 @media (max-width: 600px) {
     .carousel {
         height: auto; /* ✅ altura se ajusta no mobile também */
-        margin: 80px 5vw;
-    }
-
-    
-
-    .controls button {
-        width: 44px;
-        height: 44px;
-        margin: 0 8px;
-        font-size: 1.6rem;
+        margin: 0;
     }
 
     .indicators {
