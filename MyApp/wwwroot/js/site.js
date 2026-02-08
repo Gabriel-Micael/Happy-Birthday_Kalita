@@ -1,6 +1,8 @@
 ﻿const container = document.getElementById("confetti-container");
 
 function createConfetti() {
+    if (!container) return;
+
     const confetti = document.createElement("div");
     confetti.classList.add("confetti");
 
@@ -24,130 +26,105 @@ let index = 0;
 const carousel = document.querySelector('.carousel');
 const nextButton = document.querySelector('.next');
 const prevButton = document.querySelector('.prev');
-const mobileBreakpoint = 600;
-let isMobileMode = false;
 
-/* --- Função para ajustar altura do carrossel --- */
-function adjustCarouselHeight() {
-    if (isMobileMode) {
-        carousel.style.height = 'auto';
-        return;
+if (carousel && total > 0 && indicators.length === total && nextButton && prevButton) {
+    /* --- Função para ajustar altura do carrossel --- */
+    function adjustCarouselHeight() {
+        const active = document.querySelector('.carousel-item.active');
+        if (!active) return;
+
+        const imgs = active.querySelectorAll('img');
+        const waitImages = Array.from(imgs).map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise(res => {
+                img.addEventListener('load', res, { once: true });
+                img.addEventListener('error', res, { once: true });
+            });
+        });
+
+        Promise.all(waitImages).then(() => {
+            const height = active.offsetHeight;
+            carousel.style.height = height + 'px';
+        });
     }
 
-    const active = document.querySelector('.carousel-item.active');
-    if (!active) return;
+    const showSlide = (i) => {
+        slides.forEach((slide, j) => {
+            const shouldActivate = j === i;
+            slide.classList.toggle('active', shouldActivate);
+            indicators[j].classList.toggle('active', shouldActivate);
+        });
 
-    // Aguarda imagens carregarem antes de medir
-    const imgs = active.querySelectorAll('img');
-    const waitImages = Array.from(imgs).map(img => {
-        if (img.complete) return Promise.resolve();
-        return new Promise(res => {
-            img.addEventListener('load', res, { once: true });
-            img.addEventListener('error', res, { once: true });
+        requestAnimationFrame(adjustCarouselHeight);
+    };
+
+    const nextSlide = () => {
+        index = (index + 1) % total;
+        showSlide(index);
+    };
+
+    const prevSlide = () => {
+        index = (index - 1 + total) % total;
+        showSlide(index);
+    };
+
+    nextButton.addEventListener('click', () => {
+        nextSlide();
+    });
+
+    prevButton.addEventListener('click', () => {
+        prevSlide();
+    });
+
+    indicators.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            index = i;
+            showSlide(index);
         });
     });
 
-    Promise.all(waitImages).then(() => {
-        const height = active.offsetHeight;
-        carousel.style.height = height + 'px'; // aplica altura em px p/ permitir animação
-    });
-}
+    let startX = 0;
+    let endX = 0;
+    const threshold = 50;
 
-/* --- Exibe slide e ajusta altura --- */
-const showSlide = (i) => {
-    slides.forEach((slide, j) => {
-        const shouldActivate = j === i;
-        slide.classList.toggle('active', shouldActivate);
-        indicators[j].classList.toggle('active', j === i);
+    carousel.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        endX = startX;
     });
 
-    // ajusta altura suavemente
-    requestAnimationFrame(() => adjustCarouselHeight());
-};
+    carousel.addEventListener('touchmove', (e) => {
+        endX = e.touches[0].clientX;
+    });
 
-const updateCarouselMode = () => {
-    const shouldUseMobileMode = window.innerWidth <= mobileBreakpoint;
+    carousel.addEventListener('touchend', () => {
+        const diff = startX - endX;
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
+    });
 
-    if (shouldUseMobileMode === isMobileMode) return;
-
-    isMobileMode = shouldUseMobileMode;
-    carousel.classList.remove('mobile-scroll');
-
-    showSlide(index);
-};
-
-/* --- Controles --- */
-const nextSlide = () => {
-    index = (index + 1) % total;
-    showSlide(index);
-};
-
-const prevSlide = () => {
-    index = (index - 1 + total) % total;
-    showSlide(index);
-};
-
-/* --- Botões --- */
-nextButton.addEventListener('click', () => {
-    nextSlide();
-});
-
-prevButton.addEventListener('click', () => {
-    prevSlide();
-});
-
-/* --- Indicadores --- */
-indicators.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-        index = i;
+    window.addEventListener('load', () => {
         showSlide(index);
     });
-});
 
-/* --- Suporte a swipe (toque) no celular --- */
-let startX = 0;
-let endX = 0;
-const threshold = 50;
-
-carousel.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-});
-
-carousel.addEventListener('touchmove', (e) => {
-    endX = e.touches[0].clientX;
-});
-
-carousel.addEventListener('touchend', () => {
-    const diff = startX - endX;
-    if (Math.abs(diff) > threshold) {
-        if (diff > 0) {
-            nextSlide();
-        } else {
-            prevSlide();
-        }
-    }
-});
-
-
-/* --- Ajusta altura inicial e em redimensionamentos --- */
-window.addEventListener('load', () => {
-    updateCarouselMode();
-    showSlide(index); // força ajuste inicial
-});
-window.addEventListener('resize', () => {
-    updateCarouselMode();
-    adjustCarouselHeight();
-});
+    window.addEventListener('resize', () => {
+        adjustCarouselHeight();
+    });
+}
 
 
 //post-it
 document.addEventListener("DOMContentLoaded", () => {
     const colors = [
-        "#fff8b3", // amarelo
-        "#ffd1dc", // rosa
-        "#b9fbc0", // verde claro
-        "#bde0fe", // azul bebê
-        "#d8b4f8"  // roxo pastel
+        "#fff8b3",
+        "#ffd1dc",
+        "#b9fbc0",
+        "#bde0fe",
+        "#d8b4f8"
     ];
 
     document.querySelectorAll('.postit').forEach(el => {
@@ -159,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-//detecta scrow
 window.addEventListener('scroll', () => {
     const posts = document.querySelectorAll('.postit');
     const screenCenter = window.innerHeight / 2;
@@ -167,8 +143,6 @@ window.addEventListener('scroll', () => {
     posts.forEach(post => {
         const rect = post.getBoundingClientRect();
         const postCenter = rect.top + rect.height / 2;
-
-        // margem de tolerância (quanto "próximo" do centro conta como ativo)
         const tolerance = 150;
 
         if (Math.abs(postCenter - screenCenter) < tolerance) {

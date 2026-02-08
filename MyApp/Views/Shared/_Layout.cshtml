@@ -16,13 +16,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Licorice&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 <body>
-        <main role="main" class="container-fluid border-0">
+    @{
+        var visitorName = Context.Request.Cookies["VisitorName"];
+    }
+
+    @if (!string.IsNullOrWhiteSpace(visitorName))
+    {
+        <nav class="session-navbar">
+            <span class="session-user">Olá, @visitorName</span>
+            <form asp-controller="Home" asp-action="Logout" method="post" class="m-0">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="session-logout">Sair</button>
+            </form>
+        </nav>
+    }
+
+    <main role="main" class="container-fluid border-0">
         <div class="confetti-container" id="confetti-container"></div>
         <div class="content">
             @RenderBody()
         </div>
-            
-        </main>
+    </main>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

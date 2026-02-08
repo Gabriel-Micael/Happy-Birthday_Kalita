@@ -25,7 +25,7 @@ main {
     line-height: 1.1;
     color: #fff;
     text-shadow: 0 2px 6px rgba(0,0,0,0.4);
-    font-size: clamp(3.6rem, 12vw, 10rem);
+    font-size: clamp(4.2rem, 14vw, 11rem);
     max-width: 100%;
     word-wrap: break-word;
     opacity: 0;
@@ -180,7 +180,7 @@ a {
 @media (max-width: 800px) {
     .container {
         flex-direction: column;
-    }   
+    }
 }
 
 .carousel-item {
@@ -352,31 +352,7 @@ a {
     }
 
     .carousel {
-        height: auto; /* ✅ altura se ajusta no mobile também */
         margin: 0;
-    }
-
-    .carousel.mobile-scroll {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-    }
-
-        .carousel.mobile-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-    .carousel.mobile-scroll {
-        scrollbar-width: none;
-    }
-
-    .carousel.mobile-scroll .carousel-item {
-        position: relative;
-        opacity: 1;
-        flex: 0 0 100%;
-        scroll-snap-align: start;
     }
 
     .carousel-nav {
@@ -411,6 +387,92 @@ a {
         .text-section p {
             font-size: clamp(1rem, 3.9vw, 1.08rem);
         }
+}
+
+
+.session-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(8px);
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+
+.session-user {
+    font-family: Montserrat;
+    color: #ff96b4;
+    font-weight: 700;
+}
+
+.session-logout {
+    border: none;
+    border-radius: 999px;
+    background: #ff96b4;
+    color: #fff;
+    font-family: Montserrat;
+    padding: 8px 16px;
+    font-weight: 600;
+}
+
+body:has(.session-navbar) main {
+    padding-top: 64px !important;
+}
+
+.entry-page {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.entry-card {
+    width: min(92vw, 620px);
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 0 35px rgba(255,255,255,0.9);
+    padding: 30px 24px;
+    text-align: center;
+}
+
+.entry-title {
+    color: #ff96b4;
+    text-shadow: none;
+    margin-bottom: 8px !important;
+}
+
+.entry-subtitle {
+    font-family: Montserrat;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.entry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+.entry-input {
+    border-radius: 999px;
+    border: 2px solid #ffc1d1;
+    padding: 10px 16px;
+}
+
+.entry-button {
+    background: #ff96b4;
+    color: #fff;
+    border-radius: 999px;
+    font-weight: 700;
+    padding: 10px 16px;
 }
 
 .container {
